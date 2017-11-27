@@ -1,0 +1,117 @@
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#define MAX 100
+
+using namespace std;
+
+void cargar_vector (double a[], int n);
+void mostrar_vector (double a[], int n);
+void ordenar (double a[], int n);
+
+float promedio (double a[], int n);
+int buscar (double a[], int n, int elemento);
+
+void main()
+{
+	double a[MAX];
+	float prom, elemento;
+	int opcion,n, posicion;
+	do{
+		cout<<"ingrese el numero de elementos:";
+		cin>>n;
+	}while (!(n>0 && n<MAX)); 
+	do {
+		//Desplegar las opciones
+		cout<<"\t\t Menu \n";
+		cout<<"\t\t ==== \n";
+		cout<<"1. Cargar\n";
+		cout<<"2. Mostrar\n";
+		cout<<"3. Ordenar\n";
+		cout<<"4. Buscar\n";
+		cout<<"5. Promedio\n";
+		cout<<"0. Salir\n";
+		cout<<"Opcion: ";
+		cin>>opcion;
+		// Condicional multiple
+		switch (opcion)
+		{
+		case 1: cargar_vector (a,n);
+				break;
+		case 2: mostrar_vector (a,n);
+			    break;
+		case 3: ordenar (a,n);
+				break;
+		case 4: cout<<"ingresar el elemento a buscar:";
+			    cin>>elemento;
+				if (buscar (a,n,elemento)==-9)
+					cout<<"no existe el elemento";
+				else
+					cout<<"el primer elemento esta en la posicion:"<<buscar(a,n,elemento);
+				break;
+		case 5: prom = promedio (a,n);
+			    cout<<"el promedio es:";
+			    cout<<prom;
+		case 0: cout<<"Saliendo del Menu";
+			    break;
+		default: cout <<"ERROR de opcion";
+			    break;
+		}
+		getch();
+		system("cls");
+	}while (opcion!=0);
+	getch();
+
+}
+void cargar_vector (double a[], int n)
+{
+	for (int i=0; i<n; i++)
+	{ 
+	  cout<<"a["<<i<<"]=";
+	  cin>>a[i];
+	}
+}
+void mostrar_vector (double a[], int n)
+{
+	for (int i=0; i<n; i++)
+	{
+		cout<<"a["<<i<<"]=";
+		cout<<a[i];
+	}
+}
+
+void ordenar (double a[], int n)
+{
+	int aux;
+	for (int i=0; i<n-1; i++)
+	{
+		for (int j=i+1; j<n; j++)
+		{
+			if (a[i]>a[j])
+			{
+				aux=a[i];
+				a[i]=a[j];
+				a[j]=aux;
+			}
+		}
+	}
+}
+float promedio (double a[], int n)
+{
+	float x;
+	x=0;
+	for (int i=0; i<n; i++)
+		x=x/a[i];
+	x=x/n;
+	return x;
+}
+int buscar (int a[], int n, int elemento)
+{
+	int aux=-9;
+	for (int i=0; i<n; i++)
+		if (elemento==a[i]){
+			aux=i;
+			return aux;
+		}
+	return aux;
+}
